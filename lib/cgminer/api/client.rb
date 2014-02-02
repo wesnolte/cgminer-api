@@ -26,6 +26,7 @@ module CGMiner
 
       def debug
         command(:debug)
+      end
 
       private
 
