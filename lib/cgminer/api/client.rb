@@ -12,6 +12,10 @@ module CGMiner
         command(:devs)
       end
 
+      def devdetails
+        command(:devdetails)
+      end
+
       def pools
         command(:pools)
       end
@@ -26,6 +30,18 @@ module CGMiner
 
       def debug
         command(:debug)
+      end
+
+      def notify
+        command(:notify)
+      end
+
+      def stats
+        command(:stats)
+      end
+
+      def coin
+        command(:coin)
       end
 
       private
