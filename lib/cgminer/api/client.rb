@@ -24,6 +24,9 @@ module CGMiner
         command(:version)
       end
 
+      def debug
+        command(:debug)
+
       private
 
       def command(symbol)
