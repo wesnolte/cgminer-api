@@ -7,9 +7,12 @@ module CGMiner
 
       attr_reader :body
 
-      def initialize(status, body)
-        @status = status
-        @body = body
+      attr_reader :raw
+
+      def initialize(command_symbol, raw_command_response)
+        @raw = JSON.parse(raw_command_response)
+        @status = @raw['STATUS'][0]
+        @body = @raw[command_symbol.to_s.upcase]
       end
 
       def received_at

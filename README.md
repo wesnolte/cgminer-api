@@ -1,6 +1,6 @@
-# Cgminer::Api
+# CGMiner::API  [![Build Status](https://travis-ci.org/code-lever/cgminer-api.png)](https://travis-ci.org/code-lever/cgminer-api) [![Dependency Status](https://gemnasium.com/code-lever/cgminer-api.png)](https://gemnasium.com/code-lever/cgminer-api) [![Code Climate](https://codeclimate.com/github/code-lever/cgminer-api.png)](https://codeclimate.com/github/code-lever/cgminer-api)
 
-TODO: Write a gem description
+A pretty basic Ruby gem to use to interact with a CGMiner (or compatible) Bitcoin/Litecoin mining application.
 
 ## Installation
 
@@ -18,7 +18,12 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    client = CGMiner::API::Client.new('localhost', 4028)
+    client.version
+      => #<CGMiner::API::Response:0x000001011109c0
+           @status={"STATUS"=>"S", "When"=>1391460011, "Code"=>22,
+                    "Msg"=>"CGMiner versions", "Description"=>"cgminer 3.7.2"},
+           @body=[{"CGMiner"=>"3.7.2", "API"=>"1.32"}]>
 
 ## Contributing
 

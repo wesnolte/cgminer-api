@@ -3,17 +3,54 @@ module CGMiner
 
     class Client
 
+      attr_reader :host
+
+      attr_reader :port
+
       def initialize(host, port)
         @host = host
         @port = port
+      end
+
+      def asc(index)
+        command(:asc, index)
+      end
+
+      def asccount
+        command(:asccount)
+      end
+
+      # @param command [Symbol] the command to check
+      def check(command)
+        command(:check, command)
+      end
+
+      def config
+        command(:config)
+      end
+
+      def devdetails
+        command(:devdetails)
       end
 
       def devs
         command(:devs)
       end
 
-      def devdetails
-        command(:devdetails)
+      def gpu(index)
+        command(:gpu, index)
+      end
+
+      def gpucount
+        command(:gpucount)
+      end
+
+      def pga(index)
+        command(:pga, index)
+      end
+
+      def pgacount
+        command(:pgacount)
       end
 
       def pools
@@ -22,6 +59,10 @@ module CGMiner
 
       def summary
         command(:summary)
+      end
+
+      def usbstats
+        command(:usbstats)
       end
 
       def version
@@ -44,22 +85,19 @@ module CGMiner
         command(:coin)
       end
 
+      # privileged commands
+      def switchpool(index)
+        command(:switchpool,index)
+      end
+
       private
 
-      def command(symbol)
-        api = Net::Telnet::new('Host' => @host, 'Port' => @port)
-        results = api.cmd({ command: symbol.to_s }.to_json)
-
-        begin
-          json = JSON.parse(results)
-          status = json['STATUS'][0]
-          reply = json[symbol.to_s.upcase]
-          response = CGMiner::API::Response.new(status, reply)
-        rescue JSON::ParserError => e
-          raise RuntimeError, "Failed parsing response: #{e}"
-        end
+      def command(symbol, *parameters)
+        telnet = Net::Telnet::new('Host' => @host, 'Port' => @port)
+        results = telnet.cmd({ command: symbol.to_s, parameter: parameters.join(',') }.to_json)
+        CGMiner::API::Response.new(symbol, results)
       ensure
-        api.close unless api.nil?
+        telnet.close unless telnet.nil?
       end
 
     end
