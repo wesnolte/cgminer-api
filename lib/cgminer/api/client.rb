@@ -86,6 +86,10 @@ module CGMiner
       end
 
       # privileged commands
+      def privileged?
+        command(:privileged)
+      end
+
       def switchpool(index)
         command(:switchpool,index)
       end

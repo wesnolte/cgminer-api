@@ -23,6 +23,10 @@ module CGMiner
         @status['STATUS'] == 'S'
       end
 
+      def error?
+        @status['STATUS'] == 'E'
+      end
+
     end
 
   end
